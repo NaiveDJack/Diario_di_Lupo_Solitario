@@ -1,0 +1,10 @@
+def newchar(): #Resistenza è variabile ma non può superare Resistenza Massima
+    name = raw_input('Come si chiama il tuo Maestro Ramas?')  
+    res = 20 + roll()
+    comb = 10 + roll()
+    corone = roll()
+    card = {"nome":name, "Resistenza":res, "Resistenza massima":res, "Comb":comb, "Corone d'oro":corone, "Corone d'oro massime":50}
+    return card
+
+def status(name):
+    print name, "ha", res, "punti di Resistenza e", comb, "punti di Combattività. Porta con sè", corone, "corone d'oro."
