@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 def newchar(): #Resistenza è variabile ma non può superare Resistenza Massima
     name = raw_input('Come si chiama il tuo Maestro Ramas?')  
     res = 20 + roll()
