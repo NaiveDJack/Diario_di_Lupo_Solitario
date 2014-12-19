@@ -1,0 +1,2 @@
+def roll():
+    return random.randrange(0, 9)
