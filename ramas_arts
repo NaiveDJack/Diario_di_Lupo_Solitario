@@ -1,0 +1,14 @@
+def ramas_arts(): #scelta delle Arti Ramas
+    arts = []
+    all_arts = {1: "Mimetismo", 2: "Caccia", 3: "Sesto senso", 4: "Scherma",5: "Orientamento",6: "Guarigione",7: "Psicoschermo",8: "Psicolaser",9: "Affinità animale",0: "Telecinesi"}
+    while len(arts)<5: #nella prima avventura possono essere solo 5, aggiungere la possibilità di sceglierne di più col procedere
+        new = all_arts[input('Inserisci un numero per scegliere la corrispondente Arte Ramas. 1: "Mimetismo", 2: "Caccia", 3: "Sesto senso", 4: "Scherma", 5: "Orientamento", 6: "Guarigione", 7: "Psicoschermo", 8: "Psicolaser", 9: "Affinità animale", 0: "Telecinesi"')]
+        if new in arts:
+            print "Hai già scelto questa Arte Ramas, scegline una diversa"
+        if new == 'Scherma': #L'arte della Scherma sceglie anche la sua arma di specializzazione con un roll
+            best_weapon = Scherma_armi[roll()]
+            new = 'Scherma in ' + best_weapon
+            print new
+        if new not in arts:
+            arts.append(new)
+    return arts
