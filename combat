@@ -25,7 +25,13 @@ tab = {-11:{1: [0, -100], 2: [0, -100], 3: [0, -8], 4: [-0, -8], 5: [-1, -7], 6:
        11:{1: [-9, -3], 2: [-10, -2], 3: [-11, -2], 4: [-12, -2], 5: [-14, -1], 6: [-16, -1], 7: [-18, 0], 8: [-100, 0], 9: [-100, 0], 0: [-100, 0]},
        }
 
-def combat(enemy, ecomb, eres): #misura rapporti di forza, calcola gli scontri, controlla modificatori
+def combat(ecomb, eres): #misura rapporti di forza, calcola gli scontri, controlla modificatori #TODO: Fuga
+    psyres = False
+    if "Psicolaser" in card["Arti Ramas"] and input("Questo nemico è immune allo Psicolaser? (sì/no)")== "sì":
+        card["Comb"] = card["Comb"] - 2
+        print "Il bonus di combattività dello Psicolaser non si applica a nemici immuni"
+        print "La tua Combattività in questo scontro è", card["Comb"]
+        psyres = True
     rf = card["Comb"] - ecomb
     if rf < -11:
         rf = -11
@@ -40,5 +46,9 @@ def combat(enemy, ecomb, eres): #misura rapporti di forza, calcola gli scontri, 
         print "Dopo questo scontro la tua Resistenza è", card["Resistenza"], "mentre la Resistenza del nemico è", eres
     if card["Resistenza"] > 0:
         print "Hai sconfitto questo nemico, prosegui la tua avventura."
+        if psyres:
+            card["Comb"] = card["Comb"] + 2
+            print "La tua Combattività è ripristinata a", card["Comb"]
     else:
         print "Sei stato sconfitto. La tua vita e la tua avventura finiscono qui."
+        quit()
