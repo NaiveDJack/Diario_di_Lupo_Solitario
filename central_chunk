@@ -1,0 +1,157 @@
+# -*- coding: utf-8 -*-
+#Python 2.7.6
+#Program by: Naive D. Jack
+import random
+import shelve
+
+tab = {-11:{1: [0, -100], 2: [0, -100], 3: [0, -8], 4: [-0, -8], 5: [-1, -7], 6: [-2, -6], 7: [-3, -5], 8: [-4, -4], 9: [-5, -3], 0: [-6, 0]},
+       -10:{1: [0, -100], 2: [0, -18], 3: [0, -7], 4: [-1, -7], 5: [-2, -6], 6: [-3, -6], 7: [-4, -5], 8: [-5, -4], 9: [-6, -3], 0: [-7, 0]},
+       -9:{1: [0, -100], 2: [0, -18], 3: [0, -7], 4: [-1, -7], 5: [-2, -6], 6: [-3, -6], 7: [-4, -5], 8: [-5, -4], 9: [-6, -3], 0: [-7, 0]},
+       -8:{1: [0, -8], 2: [0, -7], 3: [-1, -6], 4: [-2, -6], 5: [-3, -5], 6: [-4, -5], 7: [-5, -4], 8: [-6, -3], 9: [-7, -2], 0: [-8, 0]},
+       -7:{1: [0, -8], 2: [0, -7], 3: [-1, -6], 4: [-2, -6], 5: [-3, -5], 6: [-4, -5], 7: [-5, -4], 8: [-6, -3], 9: [-7, -2], 0: [-8, 0]},
+       -6:{1: [0, -6], 2: [-1, -6], 3: [-2, -5], 4: [-3, -5], 5: [-4, -4], 6: [-5, -4], 7: [-6, -3], 8: [-7, -2], 9: [-8, 0], 0: [-9, 0]},
+       -5:{1: [0, -6], 2: [-1, -6], 3: [-2, -5], 4: [-3, -5], 5: [-4, -4], 6: [-5, -4], 7: [-6, -3], 8: [-7, -2], 9: [-8, 0], 0: [-9, 0]},
+       -4:{1: [-1, -6], 2: [-2, -5], 3: [-3, -5], 4: [-4, -4], 5: [-5, -4], 6: [-6, -3], 7: [-7, -2], 8: [-8, -1], 9: [-9, 0], 0: [-11, 0]},
+       -3:{1: [-1, -6], 2: [-2, -5], 3: [-3, -5], 4: [-4, -4], 5: [-5, -4], 6: [-6, -3], 7: [-7, -2], 8: [-8, -1], 9: [-9, 0], 0: [-11, 0]},
+       -2:{1: [-2, -5], 2: [-3, -5], 3: [-4, -4], 4: [-5, -4], 5: [-6, -3], 6: [-7, -2], 7: [-8, -2], 8: [-9, -1], 9: [-10, 0], 0: [-11, 0]},
+       -1:{1: [-2, -5], 2: [-3, -5], 3: [-4, -4], 4: [-5, -4], 5: [-6, -3], 6: [-7, -2], 7: [-8, -2], 8: [-9, -1], 9: [-10, 0], 0: [-11, 0]},
+       0:{1: [-3, -5], 2: [-4, -4], 3: [-5, -4], 4: [-6, -3], 5: [-7, -2], 6: [-8, -2], 7: [-9, -1], 8: [-10, 0], 9: [-11, 0], 0: [-12, 0]},
+       1:{1: [-4, -5], 2: [-5, -4], 3: [-6, -3], 4: [-7, -3], 5: [-8, -2], 6: [-9, -2], 7: [-10, -1], 8: [-11, 0], 9: [-12, 0], 0: [-14, 0]},
+       2:{1: [-4, -5], 2: [-5, -4], 3: [-6, -3], 4: [-7, -3], 5: [-8, -2], 6: [-9, -2], 7: [-10, -1], 8: [-11, 0], 9: [-12, 0], 0: [-14, 0]},
+       3:{1: [-5, -4], 2: [-6, -3], 3: [-7, -3], 4: [-8, -2], 5: [-9, -2], 6: [-10, -2], 7: [-11, -1], 8: [-11, 0], 9: [-14, 0], 0: [-16, 0]},
+       4:{1: [-5, -4], 2: [-6, -3], 3: [-7, -3], 4: [-8, -2], 5: [-9, -2], 6: [-10, -2], 7: [-11, -1], 8: [-11, 0], 9: [-14, 0], 0: [-16, 0]},
+       5:{1: [-6, -4], 2: [-7, -3], 3: [-8, -3], 4: [-9, -2], 5: [-10, -2], 6: [-11, -1], 7: [-12, 0], 8: [-14, 0], 9: [-16, 0], 0: [-18, 0]},
+       6:{1: [-6, -4], 2: [-7, -3], 3: [-8, -3], 4: [-9, -2], 5: [-10, -2], 6: [-11, -1], 7: [-12, 0], 8: [-14, 0], 9: [-16, 0], 0: [-18, 0]},
+       7:{1: [-7, -4], 2: [-8, -3], 3: [-9, -2], 4: [-10, -2], 5: [-11, -2], 6: [-12, -1], 7: [-14, 0], 8: [-16, 0], 9: [-18, 0], 0: [-100, 0]},
+       8:{1: [-7, -4], 2: [-8, -3], 3: [-9, -2], 4: [-10, -2], 5: [-11, -2], 6: [-12, -1], 7: [-14, 0], 8: [-16, 0], 9: [-18, 0], 0: [-100, 0]},
+       9:{1: [-8, -3], 2: [-9, -3], 3: [-10, -2], 4: [-11, -2], 5: [-14, -1], 6: [-16, -1], 7: [-16, 0], 8: [-18, 0], 9: [-100, 0], 0: [-100, 0]},
+       10:{1: [-8, -3], 2: [-9, -3], 3: [-10, -2], 4: [-11, -2], 5: [-14, -1], 6: [-16, -1], 7: [-16, 0], 8: [-18, 0], 9: [-100, 0], 0: [-100, 0]},
+       11:{1: [-9, -3], 2: [-10, -2], 3: [-11, -2], 4: [-12, -2], 5: [-14, -1], 6: [-16, -1], 7: [-18, 0], 8: [-100, 0], 9: [-100, 0], 0: [-100, 0]},
+       }
+
+Scherma_armi = {0: "Pugnale", 1: "Lancia", 2: "Mazza", 3:"Daga", 4:"Martello", 5:"Spada", 6:"Ascia", 7:"Spada", 8:"Asta", 9:"Spadone"}
+best_weapon = "None"
+
+
+def roll():
+    return random.randrange(0, 9)
+
+def ramas_arts(): #scelta delle Arti Ramas
+    arts = []
+    all_arts = {1: "Mimetismo", 2: "Caccia", 3: "Sesto senso", 4: "Scherma",5: "Orientamento",6: "Guarigione",7: "Psicoschermo",8: "Psicolaser",9: "Affinità animale",0: "Telecinesi"}
+    while len(arts)<5: #nella prima avventura possono essere solo 5, aggiungere la possibilità di sceglierne di più col procedere
+        new = all_arts[input('Inserisci un numero per scegliere la corrispondente Arte Ramas. 1: "Mimetismo", 2: "Caccia", 3: "Sesto senso", 4: "Scherma", 5: "Orientamento", 6: "Guarigione", 7: "Psicoschermo", 8: "Psicolaser", 9: "Affinità animale", 0: "Telecinesi"')]
+        if new in arts:
+            print "Hai già scelto questa Arte Ramas, scegline una diversa"
+        if new == 'Scherma': #L'arte della Scherma sceglie anche la sua arma di specializzazione con un roll
+            best_weapon = Scherma_armi[roll()]
+            new = 'Scherma in ' + best_weapon
+            print new
+        if new not in arts:
+            arts.append(new)
+    return arts
+
+def newchar(): #Resistenza è variabile ma non può superare Resistenza Massima
+    name = raw_input('Come si chiama il tuo Maestro Ramas?')  
+    res = 20 + roll()
+    comb = 10 + roll()
+    corone = roll()
+    arts = ramas_arts()
+    items = ['Pasto']
+    weapons= ['Ascia']
+    if "Psicolaser" in arts:
+        print "L'arte Ramas Psicolaser ti conferisce un bonus di combattività"
+        comb = comb + 2
+    if best_weapon in weapons:
+        comb = comb + 2
+        print "Possiedi l'arma di cui sei esperto e questo ti conferisce un bonus di combattività"
+    card = {"nome":name, "Resistenza":res, "Resistenza massima":res, "Comb":comb, "Corone d'oro":corone, "Corone d'oro massime":50, "Arti Ramas":arts, "Zaino":items, "Armi":weapons}
+    return card
+
+def status():
+    print "Nome:", card["nome"]
+    print "RES:", card["Resistenza"], "/", card["Resistenza massima"], "COMB:", card["Comb"]
+    print "Corone d'oro:", card["Corone d'oro"]
+    print "ARTI RAMAS"
+    print card["Arti Ramas"]
+    print "Armi:", card["Armi"]
+    print "Zaino", card["Zaino"]
+
+
+card = newchar()
+
+def event(): #riceve input per aggiungere o togliere Res, Comb, Corone d'oro, Oggetti o Armi
+    event_type = input("Inserisci il numero dell'evento appropriato: 1) Cambio RES, 2)Cambio COMB, 3)OGGETTO trovato/usato/perso, 4)CORONE guadagnate/trovate/spese/perse, 5)ARMA trovata/persa")
+    if event_type==1:
+        card["Resistenza"]= card["Resistenza"] + input("inserisci i punti di resistenza da aggiungere o sottrarre")
+        if card["Resistenza"] > card["Resistenza massima"]: #RES non può superare il valore iniziale
+            card["Resistenza"] = card["Resistenza massima"]
+        if card["Resistenza"] <= 0:
+            print "Le tue ferite sono troppo gravi e ti portano alla morte. La tua vita e la tua avventura finiscono qui."
+            quit()
+    if event_type==2:
+        card["Comb"]= card["Comb"] + input("inserisci i punti di combattività da aggiungere o sottrarre") 
+    if event_type==3:
+        subtype = input("1)Hai trovato un oggetto? 2)L'hai perso?")
+        if subtype == 1:
+            if len(card["Zaino"]) == 8:
+                print "Il tuo Zaino è pieno, devi lasciare un altro oggetto se vuoi prendere questo."
+                #TODO: aggiungere l'opzione per sostituire questo oggetto nuovo a un altro in possesso
+            else:
+                card["Zaino"].append(raw_input("Inserisci l'oggetto da aggiungere"))
+        if subtype == 2:
+            print card["Zaino"]
+            card["Zaino"].pop(input("Inserisci la posizione dell'oggetto che vuoi togliere")-1)
+    if event_type==4:
+        card["Corone d'oro"] = card["Corone d'oro"] + input("inserisci il numero di corone d'oro da aggiungere o sottrarre")
+    if event_type==5:
+        subtype = input("1)Hai trovato un'Arma? 2)L'hai persa o si è rotta?")
+        if subtype == 1:
+            if len(card["Armi"])== 2:
+                print "Non puoi portare con te più di due armi, devi lasciarne una se vuoi prendere questa."
+                #TODO: aggiungere l'opzione per sostituire l'arma nuova a una delle due
+            else:
+                card["Armi"].append(Scherma_armi[input("Inserisci il numero dell'Arma. 0: 'Pugnale', 1: 'Lancia', 2: 'Mazza', 3: 'Daga', 4: 'Martello', 5: 'Spada', 6: 'Ascia', 7: 'Spada', 8: 'Asta', 9: 'Spadone'")])
+                if best_weapon in card["Armi"]:
+                    card["Comb"] = card["Comb"] + 2
+                    print "Possiedi l'arma di cui sei esperto e questo ti conferisce un bonus di combattività"
+        if subtype == 2:
+            print card["Armi"]
+            card["Armi"].pop(input("Inserisci la posizione dell'oggetto che vuoi togliere")-1)
+
+def combat(ecomb, eres): #misura rapporti di forza, calcola gli scontri, controlla modificatori #TODO: Fuga
+    psyres = False
+    if "Psicolaser" in card["Arti Ramas"] and input("Questo nemico è immune allo Psicolaser? (sì/no)")== "sì":
+        card["Comb"] = card["Comb"] - 2
+        print "Il bonus di combattività dello Psicolaser non si applica a nemici immuni"
+        print "La tua Combattività in questo scontro è", card["Comb"]
+        psyres = True
+    rf = card["Comb"] - ecomb
+    if rf < -11:
+        rf = -11
+    if rf > 11:
+        rf = 11
+    print "Il rapporto di forza col nemico è", rf
+    while card["Resistenza"] > 0 and eres > 0: #ferma quando uno dei due è a zero RES
+        hit = roll()
+        print "La tabella del Destino ha dato", hit
+        card["Resistenza"] = card["Resistenza"] + tab[rf][hit][1]
+        eres = eres + tab[rf][hit][0]
+        print "Dopo questo scontro la tua Resistenza è", card["Resistenza"], "mentre la Resistenza del nemico è", eres
+    if card["Resistenza"] > 0:
+        print "Hai sconfitto questo nemico, prosegui la tua avventura."
+        if psyres:
+            card["Comb"] = card["Comb"] + 2
+            print "La tua Combattività è ripristinata a", card["Comb"]
+    else:
+        print "Sei stato sconfitto. La tua vita e la tua avventura finiscono qui."
+        quit()
+
+def save(input('scegli un numero a cui assegnare questo salvataggio')):
+    saving = shelve.open('LS.txt')
+    saving[n] = card
+    saving.close()
+
+def load(input('scegli il numero del salvataggio da caricare')):
+    c = shelve.open('LS.txt')
+    card = c[n]
